@@ -12,7 +12,6 @@
   const quantities = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 10, useGrouping: false });
   const money = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 0 });
   let master = null;
-  let edited = first;
 
   function render() {
     error.hidden = true;
@@ -20,29 +19,30 @@
     first.removeAttribute('aria-invalid');
     second.removeAttribute('aria-invalid');
     discrepancy.removeAttribute('aria-invalid');
-    const other = edited === first ? second : first;
-    other.value = '';
+    discrepancy.value = '0';
     if (!master) {
       meter.textContent = `Nhập tổng số ${unit} hợp lệ ở phần tính tiền phía trên.`;
       return;
     }
     const masterTotal = master.totalWithVat ?? master.total;
     meter.textContent = `Đồng hồ chung: ${quantities.format(master.volume)} ${unit} · ${money.format(masterTotal)} ₫${isElectricity ? ' (đã VAT)' : ''}`;
-    if (!edited.value.trim()) return;
+    if (!first.value.trim() || !second.value.trim()) return;
     try {
-      let difference;
-      try {
-        difference = parseVolume(discrepancy.value);
-        if (difference > master.volume) throw new RangeError('Chênh lệch không được vượt tổng đồng hồ chung.');
-      } catch (exception) {
+      const [firstUsed, secondUsed] = [first, second].map(field => {
+        try {
+          return parseVolume(field.value);
+        } catch (exception) {
+          field.setAttribute('aria-invalid', 'true');
+          throw exception;
+        }
+      });
+      const difference = Number((master.volume - firstUsed - secondUsed).toFixed(10));
+      discrepancy.value = quantities.format(difference);
+      if (difference < 0) {
         discrepancy.setAttribute('aria-invalid', 'true');
-        throw exception;
+        throw new RangeError(`Tổng số ${unit} hai nhà vượt đồng hồ chung. Vui lòng kiểm tra lại chỉ số.`);
       }
-      const used = parseVolume(edited.value);
-      const rest = Number((master.volume - used - difference).toFixed(10));
-      if (rest < 0) throw new RangeError(`Số ${unit} của nhà và chênh lệch không được vượt tổng đồng hồ chung.`);
-      const split = splitBill(master.volume, edited === first ? used : rest, difference);
-      other.value = quantities.format(rest);
+      const split = splitBill(master.volume, firstUsed, difference);
       document.getElementById('split-volume-equality').textContent = `Nhà 1: ${quantities.format(split.firstVolume)} + Nhà 2: ${quantities.format(split.secondVolume)} + Chênh lệch: ${quantities.format(difference)} = ${quantities.format(master.volume)} ${unit}`;
       document.getElementById('house-one-total').textContent = `${money.format(split.firstTotal)} ₫`;
       document.getElementById('house-two-total').textContent = `${money.format(split.secondTotal)} ₫`;
@@ -73,13 +73,11 @@
     } catch (exception) {
       error.textContent = exception.message;
       error.hidden = false;
-      edited.setAttribute('aria-invalid', 'true');
     }
   }
 
-  first.addEventListener('input', () => { edited = first; render(); });
-  second.addEventListener('input', () => { edited = second; render(); });
-  discrepancy.addEventListener('input', render);
+  first.addEventListener('input', render);
+  second.addEventListener('input', render);
   document.getElementById('split-form').addEventListener('submit', event => { event.preventDefault(); render(); });
   document.addEventListener('utility-bill-change', event => { master = event.detail; render(); });
 })();

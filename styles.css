@@ -33,6 +33,8 @@ input { min-width: 0; width: 100%; border: 0; outline: none; color: #183b3b; bac
 .hint { color: #667b74; }
 .error { color: #a92e24; }
 input::placeholder { font-size: 23px; color: #87998e; font-weight: 400; }
+input[readonly] { color: #587c6d; }
+.input-wrap:has(input[readonly]) { background: #eaf4ed; }
 .note { font-size: 10px; color: #6b7e77; line-height: 1.9; margin: 26px 0 0; }
 .result-panel { padding: 32px; }
 .total { background: #eaf4ed; border-radius: 13px; padding: 24px; }

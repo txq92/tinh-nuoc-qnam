@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#086b66">
   <meta name="description" content="Tính tiền nước sinh hoạt theo 4 bậc, kèm bảng tính chi tiết.">
   <title>Tính tiền nước sinh hoạt</title>
-  <link rel="stylesheet" href="styles.css?v=f6a0024abecb">
+  <link rel="stylesheet" href="styles.css?v=4e123a0fc7ff">
   <script src="split-calculator.js?v=55fcf407907a" defer></script>
   <script src="calculator.js?v=125a1cd4859a" defer></script>
-  <script src="utility-split.js?v=884e1a417910" defer></script>
+  <script src="utility-split.js?v=5167f97494da" defer></script>
   <script src="app.js?v=2e2481e03607" defer></script>
 </head>
 <body>
@@ -66,8 +66,8 @@
           </div>
         </div>
         <label for="usage-discrepancy">Chênh lệch nước</label>
-        <div class="input-wrap"><input id="usage-discrepancy" type="text" inputmode="decimal" value="0" autocomplete="off" aria-describedby="split-hint split-error"><span>m³</span></div>
-        <p id="split-hint" class="hint">Nhập một nhà, nhà kia tự tính phần còn lại. Nước chênh lệch chia đôi.</p>
+        <div class="input-wrap"><input id="usage-discrepancy" type="text" value="0" readonly aria-describedby="split-hint split-error"><span>m³</span></div>
+        <p id="split-hint" class="hint">Nhập số thực tế mỗi nhà. Chênh lệch = tổng − nhà 1 − nhà 2, chia đôi khi tính tiền.</p>
         <p id="split-error" class="error" role="alert" hidden></p>
       </form>
       <div id="split-results" aria-live="polite" aria-atomic="true" hidden>
