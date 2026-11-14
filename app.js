@@ -1,5 +1,7 @@
 'use strict';
-const { parseVolume, calculateBill } = window.WaterCalculator;
+const isElectricity = document.body.dataset.calculator === 'electricity';
+const { parseVolume, calculateBill } = isElectricity ? window.ElectricityCalculator : window.WaterCalculator;
+const unit = isElectricity ? 'kWh' : 'm³';
 const form = document.getElementById('water-form');
 const input = document.getElementById('volume');
 const startInput = document.getElementById('start-reading');
@@ -32,7 +34,7 @@ function render() {
   input.removeAttribute('aria-invalid');
   if (inputMethod === 'readings') input.value = '';
   document.getElementById('total').textContent = '—';
-  document.getElementById('summary').textContent = 'Nhập chỉ số hoặc số m³ để tính.';
+  document.getElementById('summary').textContent = `Nhập chỉ số hoặc số ${unit} để tính.`;
   document.getElementById('breakdown').replaceChildren();
   try {
     let volume;
@@ -66,7 +68,7 @@ function render() {
     }
     const bill = calculateBill(volume);
     document.getElementById('total').textContent = money.format(bill.total);
-    document.getElementById('summary').textContent = `${number.format(bill.volume)} m³ trong kỳ`;
+    document.getElementById('summary').textContent = `${number.format(bill.volume)} ${unit} trong kỳ`;
     const rows = bill.rows.map(row => {
       const tr = document.createElement('tr');
       if (row.used === 0) tr.className = 'unused';
@@ -74,10 +76,10 @@ function render() {
       label.scope = 'row';
       label.textContent = `${row.label} · ${row.range}`;
       const rate = document.createElement('small');
-      rate.textContent = `${money.format(row.rate)} đ / m³`;
+      rate.textContent = `${money.format(row.rate)} đ / ${unit}`;
       label.append(rate);
       const used = document.createElement('td');
-      used.textContent = `${number.format(row.used)} m³`;
+      used.textContent = `${number.format(row.used)} ${unit}`;
       const amount = document.createElement('td');
       amount.textContent = `${money.format(row.amount)} ₫`;
       tr.append(label, used, amount);
@@ -89,7 +91,7 @@ function render() {
     error.textContent = exception.message;
     error.hidden = false;
     document.getElementById('total').textContent = '—';
-    document.getElementById('summary').textContent = 'Vui lòng kiểm tra lượng nước đã nhập.';
+    document.getElementById('summary').textContent = 'Vui lòng kiểm tra số đã nhập.';
     document.getElementById('breakdown').replaceChildren();
   }
 }

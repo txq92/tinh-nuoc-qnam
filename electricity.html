@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#086b66">
+  <meta name="description" content="Tính tiền điện sinh hoạt theo 5 bậc, kèm bảng tính chi tiết.">
+  <title>Tính tiền điện sinh hoạt</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="electricity.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body data-calculator="electricity">
+  <main class="container">
+    <nav class="page-menu" aria-label="Chọn công cụ">
+      <a href="index.html">Tiền nước</a>
+      <a href="electricity.html" aria-current="page">Tiền điện</a>
+    </nav>
+    <header><h1>Tính tiền điện</h1></header>
+
+    <section class="calculator" aria-label="Máy tính tiền điện">
+      <div class="input-panel">
+        <form id="water-form" novalidate>
+          <div class="readings">
+            <div>
+              <label for="start-reading">Số đầu</label>
+              <div class="input-wrap"><input id="start-reading" name="start-reading" type="text" inputmode="decimal" placeholder="1000" autocomplete="off" aria-describedby="input-hint input-error"><span>kWh</span></div>
+            </div>
+            <div>
+              <label for="end-reading">Số cuối</label>
+              <div class="input-wrap"><input id="end-reading" name="end-reading" type="text" inputmode="decimal" placeholder="1250" autocomplete="off" aria-describedby="input-hint input-error"><span>kWh</span></div>
+            </div>
+          </div>
+          <label for="volume">Số kWh trong kỳ</label>
+          <div class="input-wrap"><input id="volume" name="volume" type="text" inputmode="decimal" placeholder="Ví dụ: 250" autocomplete="off" aria-describedby="input-hint input-error"><span>kWh</span></div>
+          <p id="input-hint" class="hint">Nhập trực tiếp hoặc tự tính từ số cuối − số đầu.</p>
+          <p id="input-error" class="error" role="alert" hidden></p>
+        </form>
+      </div>
+
+      <div class="result-panel">
+        <div class="total" aria-live="polite" aria-atomic="true"><span class="eyebrow">TIỀN ĐIỆN CHƯA VAT</span><div class="amount"><span id="total">—</span> <span class="currency">₫</span></div><p id="summary">Nhập chỉ số hoặc số kWh để tính.</p></div>
+        <div class="table-wrap"><table><caption>Chi tiết theo bậc sử dụng</caption><thead><tr><th scope="col">Bậc / Đơn giá</th><th scope="col">Sử dụng</th><th scope="col">Thành tiền</th></tr></thead><tbody id="breakdown"></tbody></table></div>
+        <p class="calculation-note">Giá theo 5 bậc bạn cung cấp · Chưa VAT · Làm tròn đến đồng.</p>
+      </div>
+    </section>
+
+    <details class="tariffs"><summary>Bảng giá điện sinh hoạt</summary><div class="tariff-grid"><article><span class="tier">01</span><h3>Đến 100 kWh</h3><p>1.901 <small>đ / kWh</small></p></article><article><span class="tier">02</span><h3>Trên 100 đến 200 kWh</h3><p>2.289 <small>đ / kWh</small></p></article><article><span class="tier">03</span><h3>Trên 200 đến 400 kWh</h3><p>2.894 <small>đ / kWh</small></p></article><article><span class="tier">04</span><h3>Trên 400 đến 700 kWh</h3><p>3.456 <small>đ / kWh</small></p></article><article><span class="tier">05</span><h3>Trên 700 kWh</h3><p>3.844 <small>đ / kWh</small></p></article></div></details>
+    <footer><p>Nguồn: <a href="https://cskh.cpc.vn/tra-cuu/thong-tin-gia-dien" target="_blank" rel="noopener noreferrer">Giá bán lẻ điện sinh hoạt · EVNCPC</a></p></footer>
+  </main>
+  <div id="calculation-toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+</body>
+</html>

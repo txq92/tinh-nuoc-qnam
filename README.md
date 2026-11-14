@@ -1,6 +1,24 @@
-# Tính tiền nước sinh hoạt
+# Tính tiền nước và điện sinh hoạt
 
 Trang HTML/CSS/JavaScript tĩnh, không cần cài thư viện hay build. Mở `index.html` để sử dụng; giao diện hỗ trợ điện thoại và máy tính.
+
+Menu **Tiền nước / Tiền điện** có trên cả hai trang. Trang nước ở `index.html`, trang điện ở `electricity.html`; dùng chung giao diện ưu tiên điện thoại, cách nhập trực tiếp hoặc nhập hai chỉ số và thông báo tính xong tự tắt sau 3 giây.
+
+## Tiền điện
+
+Tính lũy tiến theo bảng giá người dùng cung cấp, **chưa cộng VAT**:
+
+| Bậc | Lượng điện | Đơn giá (đồng/kWh) |
+| --- | --- | ---: |
+| 1 | Đến 100 kWh | 1.901 |
+| 2 | Trên 100 đến 200 kWh | 2.289 |
+| 3 | Trên 200 đến 400 kWh | 2.894 |
+| 4 | Trên 400 đến 700 kWh | 3.456 |
+| 5 | Trên 700 kWh | 3.844 |
+
+Ví dụ 250 kWh = 100 × 1.901 + 100 × 2.289 + 50 × 2.894 = **563.700 đ**, chưa VAT. Nguồn tham khảo: [EVNCPC](https://cskh.cpc.vn/tra-cuu/thong-tin-gia-dien). Chạy `node electricity.test.cjs` để kiểm tra các mốc chuyển bậc.
+
+## Tiền nước
 
 Có hai cách nhập: nhập trực tiếp **Số mét khối trong kỳ**, hoặc nhập **Số đầu** và **Số cuối** để tự điền số m³ bằng số cuối trừ số đầu. Tổng tiền và chi tiết từng bậc cập nhật ngay theo cách nhập vừa sửa. Có thể sửa số m³ bằng tay sau khi tự tính từ chỉ số. Số cuối phải lớn hơn hoặc bằng số đầu. Khi thiếu hoặc nhập sai dữ liệu ở cách nhập đang dùng, trang xóa kết quả cũ để tránh nhầm lẫn.
 
