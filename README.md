@@ -2,6 +2,8 @@
 
 Trang HTML/CSS/JavaScript tĩnh, không cần cài thư viện hay build. Mở `index.html` để sử dụng; giao diện hỗ trợ điện thoại và máy tính.
 
+Có hai cách nhập: nhập trực tiếp **Số mét khối trong kỳ**, hoặc nhập **Số đầu** và **Số cuối** để tự điền số m³ bằng số cuối trừ số đầu. Tổng tiền và chi tiết từng bậc cập nhật ngay theo cách nhập vừa sửa. Có thể sửa số m³ bằng tay sau khi tự tính từ chỉ số. Số cuối phải lớn hơn hoặc bằng số đầu. Khi thiếu hoặc nhập sai dữ liệu ở cách nhập đang dùng, trang xóa kết quả cũ để tránh nhầm lẫn.
+
 ## Công thức
 
 Tính lũy tiến, phần nước nằm ở bậc nào áp dụng đơn giá bậc đó:

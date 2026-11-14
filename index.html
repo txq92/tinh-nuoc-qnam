@@ -13,37 +13,41 @@
 <body>
   <main class="container">
     <header>
-      <div class="brand"><span class="drop" aria-hidden="true">◒</span> TIỆN ÍCH GIA ĐÌNH</div>
-      <h1>Mỗi khối nước,<br>tính thật rõ ràng.</h1>
-      <p class="intro">Tính tiền nước sinh hoạt theo 4 bậc lũy tiến.<br>Nhập lượng nước sử dụng để xem chi tiết hóa đơn.</p>
+      <h1>Tính tiền nước</h1>
     </header>
 
     <section class="calculator" aria-label="Máy tính tiền nước">
       <div class="input-panel">
-        <span class="eyebrow">LƯỢNG NƯỚC SỬ DỤNG</span>
         <form id="water-form" novalidate>
+          <div class="readings">
+            <div>
+              <label for="start-reading">Số đầu</label>
+              <div class="input-wrap"><input id="start-reading" name="start-reading" type="text" inputmode="decimal" placeholder="100" autocomplete="off" aria-describedby="input-hint input-error"><span>m³</span></div>
+            </div>
+            <div>
+              <label for="end-reading">Số cuối</label>
+              <div class="input-wrap"><input id="end-reading" name="end-reading" type="text" inputmode="decimal" placeholder="143" autocomplete="off" aria-describedby="input-hint input-error"><span>m³</span></div>
+            </div>
+          </div>
           <label for="volume">Số mét khối trong kỳ</label>
-          <div class="input-wrap"><input id="volume" name="volume" type="text" inputmode="decimal" value="43" autocomplete="off" aria-describedby="input-hint input-error"><span>m³</span></div>
-          <p id="input-hint" class="hint">Chấp nhận số thập phân, ví dụ: 10,5 m³.</p>
+          <div class="input-wrap"><input id="volume" name="volume" type="text" inputmode="decimal" placeholder="Ví dụ: 43" autocomplete="off" aria-describedby="input-hint input-error"><span>m³</span></div>
+          <p id="input-hint" class="hint">Nhập trực tiếp hoặc tự tính từ số cuối − số đầu.</p>
           <p id="input-error" class="error" role="alert" hidden></p>
-          <button class="primary" type="submit">Tính tiền nước <span aria-hidden="true">↗</span></button>
         </form>
-        <div class="examples"><span>Thử nhanh</span><div class="chips"><button type="button" data-volume="43">43 m³</button><button type="button" data-volume="47">47 m³</button><button type="button" data-volume="20">20 m³</button><button type="button" data-volume="11">11 m³</button></div></div>
-        <p class="note">Đơn giá theo thông tin bạn cung cấp.<br>Không cộng thêm thuế hoặc phí.</p>
       </div>
 
       <div class="result-panel">
-        <div class="total" aria-live="polite" aria-atomic="true"><span class="eyebrow">TỔNG TIỀN NƯỚC</span><div class="amount"><span id="total">—</span> <span class="currency">₫</span></div><p id="summary">Nhập lượng nước để tính tiền.</p></div>
+        <div class="total" aria-live="polite" aria-atomic="true"><span class="eyebrow">TỔNG TIỀN NƯỚC</span><div class="amount"><span id="total">—</span> <span class="currency">₫</span></div><p id="summary">Nhập chỉ số hoặc số m³ để tính.</p></div>
         <div class="table-wrap"><table><caption>Chi tiết theo bậc sử dụng</caption><thead><tr><th scope="col">Bậc / Đơn giá</th><th scope="col">Sử dụng</th><th scope="col">Thành tiền</th></tr></thead><tbody id="breakdown"></tbody></table></div>
-        <p class="calculation-note">Tiền nước = tổng (số m³ ở mỗi bậc × đơn giá của bậc đó). Tổng tiền làm tròn đến đồng gần nhất.</p>
+        <p class="calculation-note">Làm tròn đến đồng · Không cộng thêm thuế, phí.</p>
       </div>
     </section>
 
-    <section class="tariffs" aria-labelledby="tariff-title"><div class="section-heading"><h2 id="tariff-title">Bảng giá nước sinh hoạt</h2><span>Đơn vị: đồng / m³</span></div><div class="tariff-grid"><article><span class="tier">01</span><h3>10 m³ đầu tiên</h3><p>8.954 <small>đ / m³</small></p></article><article><span class="tier">02</span><h3>Trên 10 đến 20 m³</h3><p>11.177 <small>đ / m³</small></p></article><article><span class="tier">03</span><h3>Trên 20 đến 30 m³</h3><p>13.400 <small>đ / m³</small></p></article><article><span class="tier">04</span><h3>Trên 30 m³</h3><p>15.624 <small>đ / m³</small></p></article></div></section>
+    <details class="tariffs"><summary>Bảng giá nước sinh hoạt</summary><div class="tariff-grid"><article><span class="tier">01</span><h3>10 m³ đầu tiên</h3><p>8.954 <small>đ / m³</small></p></article><article><span class="tier">02</span><h3>Trên 10 đến 20 m³</h3><p>11.177 <small>đ / m³</small></p></article><article><span class="tier">03</span><h3>Trên 20 đến 30 m³</h3><p>13.400 <small>đ / m³</small></p></article><article><span class="tier">04</span><h3>Trên 30 m³</h3><p>15.624 <small>đ / m³</small></p></article></div></details>
     <footer>
-      <p>Tính ngay trên thiết bị của bạn · Không cần đăng nhập</p>
-      <p>Nguồn: <a href="https://nuocsachqna.vn/index.php/Tin-tuc/thong-bao-v-v-dieu-chinh-gia-nuoc-sach-tren-dia-ban-tinh-quang-nam-tu-thang-07-2025-39.html" target="_blank" rel="noopener noreferrer">Thông báo điều chỉnh giá nước sạch trên địa bàn tỉnh Quảng Nam từ tháng 07/2025</a></p>
+      <p>Nguồn: <a href="https://nuocsachqna.vn/index.php/Tin-tuc/thong-bao-v-v-dieu-chinh-gia-nuoc-sach-tren-dia-ban-tinh-quang-nam-tu-thang-07-2025-39.html" target="_blank" rel="noopener noreferrer">Giá nước Quảng Nam · 07/2025</a></p>
     </footer>
   </main>
+  <div id="calculation-toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 </body>
 </html>
