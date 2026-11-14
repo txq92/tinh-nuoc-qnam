@@ -105,6 +105,8 @@ footer a:hover { color: #075751; }
 .save-panel summary { cursor: pointer; padding: 12px 0; font-size: 12px; }
 .save-panel p { font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
 .save-panel a { color: #086b66; }
+.save-panel [data-state="error"] { padding: 10px; border-radius: 8px; color: #a92e24; background: #fff0ed; font-weight: 500; }
+.save-panel [data-state="success"] { color: #086451; font-weight: 500; }
 @media (max-width: 700px) {
   .split-panel { padding: 16px; }
   .page-menu { max-width: none; margin-bottom: 16px; }

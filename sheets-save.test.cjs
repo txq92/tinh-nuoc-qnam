@@ -127,6 +127,11 @@ async function testWebsite(electric) {
   await elements['save-sheet'].listeners.click();
   assert(elements['save-status'].textContent.includes('Web App'));
   elements['sheets-endpoint'].value = 'https://script.google.com/macros/s/example/exec';
+  elements['sheets-access-code'].value = 'short';
+  await elements['save-sheet'].listeners.click();
+  assert(elements['save-status'].textContent.includes('ít nhất 16'));
+  assert.equal(elements['save-status'].attributes['data-state'], 'error');
+  assert.equal(document.body.children.length, 0);
   elements['sheets-access-code'].value = accessCode;
   const saving = elements['save-sheet'].listeners.click();
   assert.equal(elements['save-sheet'].textContent, 'Đang lưu…');
@@ -151,6 +156,8 @@ async function testWebsite(electric) {
   assert.equal(frame.removed, true);
   edit('house-two', electric ? '1050' : '80');
   assert.equal(elements['save-sheet'].disabled, false);
+  assert(elements['save-status'].textContent.includes('chưa được lưu'));
+  assert(!elements['save-status'].textContent.includes('✓ Đã lưu'));
   const timedOutSave = elements['save-sheet'].listeners.click();
   const timedOutFrame = document.body.children.at(-1);
   const timedOutNonce = new URL(timedOutFrame.src).searchParams.get('nonce');
@@ -169,6 +176,11 @@ async function testWebsite(electric) {
   emit({ origin, source, data: { channel: 'utility-sheets', nonce: retryNonce, type: 'result', result: { ok: true, id: retryId, row: 6, duplicate: true } } });
   await retry;
   assert(elements['save-status'].textContent.includes('không ghi trùng'));
+  edit('volume', '');
+  assert.equal(elements['save-sheet'].disabled, true);
+  assert(!elements['save-status'].textContent.includes('Đã lưu'));
+  assert(elements['save-status'].textContent.includes('trước khi lưu'));
+  assert(html.includes('edit#gid=748391'));
   console.log(`PASS ${electric ? 'electricity' : 'water'} website: snapshots, incomplete split, confirmed save, origin/source checks, timeout and retry.`);
 }
 function testBridge() {

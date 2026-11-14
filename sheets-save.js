@@ -8,7 +8,7 @@
   const endpoint = document.getElementById('sheets-endpoint');
   const accessCode = document.getElementById('sheets-access-code');
   const settings = document.getElementById('sheets-settings');
-  let master = null, split = null, saving = false, savedKey = '', pending = null;
+  let master = null, split = null, saving = false, savedKey = '', savedNotice = '', pending = null;
   const parts = new Intl.DateTimeFormat('en', { timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit' }).formatToParts(new Date());
   period.value = `${parts.find(p => p.type === 'year').value}-${parts.find(p => p.type === 'month').value}`;
   try { endpoint.value = config.endpoint || localStorage.getItem('utility-sheets-endpoint') || ''; }
@@ -36,15 +36,23 @@
     };
   }
 
-  function update() {
+  function update(resetNotice = false) {
     if (saving) return;
     try {
       const key = JSON.stringify(snapshot());
       button.disabled = key === savedKey;
       button.textContent = key === savedKey ? 'Đã lưu kết quả này' : 'Lưu vào Google Sheets';
-    } catch (_) {
+      if (resetNotice) {
+        status.textContent = key === savedKey ? savedNotice : 'Kết quả hiện tại chưa được lưu. Bấm nút để lưu vào tab Lich_su_dien_nuoc.';
+        status.setAttribute('data-state', key === savedKey ? 'success' : 'idle');
+      }
+    } catch (error) {
       button.disabled = true;
       button.textContent = 'Lưu vào Google Sheets';
+      if (resetNotice) {
+        status.textContent = error.message;
+        status.setAttribute('data-state', 'idle');
+      }
     }
   }
 
@@ -92,6 +100,10 @@
         settings.open = true;
         throw new Error('Mở phần kết nối bên dưới để nhập URL Web App và mã lưu.');
       }
+      if (accessCode.value.length < 16) {
+        settings.open = true;
+        throw new Error('Mã lưu phải có ít nhất 16 ký tự và khớp SAVE_ACCESS_CODE trong Apps Script.');
+      }
       const url = validatedEndpoint(endpoint.value.trim());
       const key = JSON.stringify(data);
       if (!pending || pending.key !== key || pending.url !== url) pending = { key, url, record: { id: crypto.randomUUID(), ...data } };
@@ -100,19 +112,26 @@
       button.disabled = true;
       button.textContent = 'Đang lưu…';
       status.textContent = 'Đang chờ Google xác nhận…';
+      status.setAttribute('data-state', 'saving');
       const result = await sendRecord(url, { accessCode: accessCode.value, record: pending.record });
       savedKey = key;
-      status.textContent = `✓ Đã lưu kỳ ${data.period} vào dòng ${result.row}${result.duplicate ? ' (đã có, không ghi trùng)' : ''}.`;
+      savedNotice = `✓ Đã lưu kỳ ${data.period} vào tab Lich_su_dien_nuoc, dòng ${result.row}${result.duplicate ? ' (đã có, không ghi trùng)' : ''}.`;
+      let currentKey = '';
+      try { currentKey = JSON.stringify(snapshot()); } catch (_) { /* Form may have changed while saving. */ }
+      status.textContent = savedNotice + (currentKey === key ? '' : ' Dữ liệu hiện tại đã thay đổi và chưa được lưu.');
+      status.setAttribute('data-state', 'success');
     } catch (error) {
       status.textContent = error.message;
+      status.setAttribute('data-state', 'error');
     } finally {
       saving = false;
       update();
     }
   });
-  endpoint.addEventListener('input', () => { savedKey = ''; update(); });
-  period.addEventListener('input', update);
-  document.addEventListener('utility-bill-change', event => { master = event.detail; update(); });
-  document.addEventListener('utility-split-change', event => { split = event.detail; update(); });
+  endpoint.addEventListener('input', () => { savedKey = ''; update(true); });
+  accessCode.addEventListener('input', () => update(true));
+  period.addEventListener('input', () => update(true));
+  document.addEventListener('utility-bill-change', event => { master = event.detail; update(true); });
+  document.addEventListener('utility-split-change', event => { split = event.detail; update(true); });
   update();
 })();
