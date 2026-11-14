@@ -2,15 +2,19 @@
   'use strict';
   function splitBill(bill, firstVolume, discrepancy = 0) {
     const totalVolume = bill.volume;
-    if (typeof firstVolume !== 'number' || !Number.isFinite(firstVolume) || firstVolume < 0 || firstVolume > totalVolume) {
-      throw new RangeError('Lượng sử dụng mỗi nhà phải nằm trong tổng đồng hồ chung.');
+    if (typeof firstVolume !== 'number' || !Number.isFinite(firstVolume) || firstVolume < 0 || firstVolume > 1e9) {
+      throw new RangeError('Lượng sử dụng mỗi nhà phải là số không âm và không vượt 1.000.000.000.');
     }
-    if (typeof discrepancy !== 'number' || !Number.isFinite(discrepancy) || discrepancy < 0 || discrepancy > totalVolume - firstVolume + 1e-10) {
-      throw new RangeError('Tổng nhà 1 và chênh lệch không được vượt đồng hồ chung.');
+    if (typeof discrepancy !== 'number' || !Number.isFinite(discrepancy) || discrepancy > totalVolume - firstVolume + 1e-10) {
+      throw new RangeError('Chênh lệch không phù hợp với số sử dụng của hai nhà.');
     }
     const secondVolume = Math.max(0, Number((totalVolume - firstVolume - discrepancy).toFixed(10)));
-    const firstBilledVolume = firstVolume + discrepancy / 2;
-    const secondBilledVolume = secondVolume + discrepancy / 2;
+    if (secondVolume > 1e9) throw new RangeError('Lượng sử dụng mỗi nhà không được vượt 1.000.000.000.');
+    // Keep actual readings intact; only normalize the quantities used for billing.
+    const firstBilledVolume = discrepancy < 0
+      ? totalVolume * (firstVolume / (firstVolume + secondVolume))
+      : firstVolume + discrepancy / 2;
+    const secondBilledVolume = totalVolume - firstBilledVolume;
     let remainingFirst = firstBilledVolume;
     let remainingSecond = secondBilledVolume;
     const rows = bill.rows.map(row => {

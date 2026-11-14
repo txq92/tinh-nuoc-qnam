@@ -88,6 +88,14 @@ footer a:hover { color: #075751; }
 .split-reconciliation p { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 12px; line-height: 1.7; margin: 6px 0; }
 .split-reconciliation .split-equality { display: block; padding-top: 8px; border-top: 1px solid #c7ded0; font-size: 11px; color: #086451; overflow-wrap: anywhere; }
 .split-details summary { cursor: pointer; padding-top: 16px; font-size: 12px; }
+.house-calculation { margin-top: 12px; border: 1px solid #dbe5df; border-radius: 10px; }
+.house-calculation summary { cursor: pointer; min-height: 44px; padding: 14px 12px; font-size: 12px; font-weight: 600; }
+.calculation-steps { padding: 0 12px 12px; }
+.calculation-steps h3 { font-size: 12px; margin: 16px 0 8px; }
+.calculation-steps p { font-size: 11px; line-height: 1.9; margin: 8px 0; overflow-wrap: anywhere; }
+.calculation-steps table { margin-top: 12px; }
+.calculation-steps td { white-space: normal; text-align: right; padding-left: 10px; line-height: 1.8; }
+.calculation-steps .house-final { color: #086451; font-weight: 600; font-size: 13px; }
 @media (max-width: 700px) {
   .split-panel { padding: 16px; }
   .page-menu { max-width: none; margin-bottom: 16px; }

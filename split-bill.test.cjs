@@ -36,7 +36,7 @@ for (const total of [0, 0.001, 0.3, 5, 10, 10.5, 20, 29.9, 30, 43, 100, 1000]) {
     }
   }
 }
-for (const args of [[100, 101], [100, -1], [100, 20, -1], [100, 20, 81], [100, NaN], [100, 20, Infinity]]) {
+for (const args of [[100, 101], [100, -1], [100, 20, -Infinity], [100, 20, 81], [100, NaN], [100, 20, Infinity]]) {
   assert.throws(() => splitBill(...args), RangeError);
 }
 console.log('PASS chia 2 nhà: ví dụ 20/80, chênh lệch, chuyển định mức, số lẻ, làm tròn và khớp tổng tiền.');
@@ -65,7 +65,32 @@ for (const total of [0, 0.001, 100, 101, 200, 250, 400, 401, 700, 701, 1000]) {
     }
   }
 }
-for (const args of [[100, 101], [100, -1], [100, 20, -1], [100, 20, 81], [100, NaN], [100, 20, Infinity]]) {
+for (const args of [[100, 101], [100, -1], [100, 20, -Infinity], [100, 20, 81], [100, NaN], [100, 20, Infinity]]) {
   assert.throws(() => electricity.splitBill(...args), RangeError);
 }
 console.log('PASS chia tiền điện: 5 bậc, chênh lệch, khớp tiền trước thuế, VAT và tổng sau thuế.');
+
+for (const calculator of [{ calculateBill, splitBill }, electricity]) {
+  const example = calculator.splitBill(100, 20, -10);
+  assert.equal(example.firstVolume, 20);
+  assert.equal(example.secondVolume, 90);
+  assert(Math.abs(example.firstBilledVolume - 100 * 20 / 110) < 1e-10);
+  assert(Math.abs(example.secondBilledVolume - 100 * 90 / 110) < 1e-10);
+  for (const total of [0, 0.2, 10, 30, 100, 200, 400, 700, 1000]) {
+    for (const excess of [0.1, 10, 100]) {
+      for (const fraction of [0, 0.01, 0.2, 0.5, 1]) {
+        const first = Number(((total + excess) * fraction).toFixed(10));
+        const split = calculator.splitBill(total, first, -excess);
+        const bill = calculator.calculateBill(total);
+        assert.equal(split.firstTotal + split.secondTotal, bill.totalWithVat ?? bill.total);
+        assert(split.firstTotal >= 0 && split.secondTotal >= 0);
+        assert(Math.abs(split.firstBilledVolume + split.secondBilledVolume - total) < 1e-8);
+        assert(Math.abs(split.firstBilledVolume - total * first / (total + excess)) < 1e-8);
+        assert(Math.abs(split.rows.reduce((s, row) => s + row.firstUsed, 0) - split.firstBilledVolume) < 1e-8);
+        assert(Math.abs(split.rows.reduce((s, row) => s + row.secondUsed, 0) - split.secondBilledVolume) < 1e-8);
+        if (bill.vatAmount !== undefined) assert.equal(split.firstVat + split.secondVat, bill.vatAmount);
+      }
+    }
+  }
+}
+console.log('PASS chênh lệch âm: giảm theo tỷ lệ, giữ số thực tế, vượt tổng, tổng bằng 0 và khớp tiền cả điện/nước.');

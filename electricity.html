@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#086b66">
   <meta name="description" content="Tính tiền điện sinh hoạt theo 5 bậc, kèm bảng tính chi tiết.">
   <title>Tính tiền điện sinh hoạt</title>
-  <link rel="stylesheet" href="styles.css?v=4e123a0fc7ff">
-  <script src="split-calculator.js?v=55fcf407907a" defer></script>
+  <link rel="stylesheet" href="styles.css?v=e8e908b7d549">
+  <script src="split-calculator.js?v=7686c8cb1c39" defer></script>
   <script src="electricity.js?v=9a7406767f0d" defer></script>
-  <script src="utility-split.js?v=5167f97494da" defer></script>
+  <script src="utility-split.js?v=99bcaf2f7d6a" defer></script>
   <script src="app.js?v=2e2481e03607" defer></script>
 </head>
 <body data-calculator="electricity">
@@ -58,7 +58,7 @@
     <details class="tariffs"><summary>Bảng giá điện sinh hoạt</summary><div class="tariff-grid"><article><span class="tier">01</span><h3>Đến 100 kWh</h3><p>1.901 <small>đ / kWh</small></p></article><article><span class="tier">02</span><h3>Trên 100 đến 200 kWh</h3><p>2.289 <small>đ / kWh</small></p></article><article><span class="tier">03</span><h3>Trên 200 đến 400 kWh</h3><p>2.894 <small>đ / kWh</small></p></article><article><span class="tier">04</span><h3>Trên 400 đến 700 kWh</h3><p>3.456 <small>đ / kWh</small></p></article><article><span class="tier">05</span><h3>Trên 700 kWh</h3><p>3.844 <small>đ / kWh</small></p></article></div></details>
     <section class="split-panel" aria-labelledby="split-title">
       <h2 id="split-title">Chia tiền điện cho 2 nhà</h2>
-      <p class="hint">Chia đều bậc giá thấp và điện chênh lệch cho 2 nhà.</p>
+      <p class="hint">Chia đều định mức bậc giá thấp cho 2 nhà.</p>
       <p id="split-meter" class="split-meter">Nhập tổng số kWh ở phần tính tiền phía trên.</p>
       <form id="split-form" novalidate>
         <div class="readings">
@@ -73,21 +73,24 @@
         </div>
         <label for="usage-discrepancy">Chênh lệch điện</label>
         <div class="input-wrap"><input id="usage-discrepancy" type="text" value="0" readonly aria-describedby="split-hint split-error"><span>kWh</span></div>
-        <p id="split-hint" class="hint">Nhập số thực tế mỗi nhà. Chênh lệch = tổng − nhà 1 − nhà 2, chia đôi khi tính tiền.</p>
+        <p id="split-hint" class="hint">Nhập số thực tế mỗi nhà. Chênh lệch tự tính: dương chia đôi, âm giảm theo tỷ lệ.</p>
         <p id="split-error" class="error" role="alert" hidden></p>
       </form>
       <div id="split-results" aria-live="polite" aria-atomic="true" hidden>
         <p id="split-volume-equality" class="split-meter"></p>
+        <p id="split-adjustment-note" class="hint"></p>
         <div class="split-houses">
-          <div><span>Nhà 1 · sau VAT</span><strong id="house-one-total">—</strong><small id="house-one-tax"></small></div>
-          <div><span>Nhà 2 · sau VAT</span><strong id="house-two-total">—</strong><small id="house-two-tax"></small></div>
+          <div><span>Nhà 1 · sau VAT</span><strong id="house-one-total">—</strong><small id="house-one-usage"></small><small id="house-one-tax"></small></div>
+          <div><span>Nhà 2 · sau VAT</span><strong id="house-two-total">—</strong><small id="house-two-usage"></small><small id="house-two-tax"></small></div>
         </div>
         <div class="split-reconciliation">
           <p>Tổng 2 nhà sau VAT <strong id="split-total">—</strong></p>
           <p>Đồng hồ chung sau VAT <strong id="split-master-total">—</strong></p>
           <p id="split-equality" class="split-equality"></p>
         </div>
-        <details class="split-details"><summary>Chi tiết chia theo bậc</summary><p class="hint">Đã gồm một nửa điện chênh lệch mỗi nhà. Định mức thấp chưa dùng hết chuyển sang nhà kia.</p><div class="table-wrap"><table><thead><tr><th scope="col">Bậc / Đơn giá</th><th scope="col">Nhà 1</th><th scope="col">Nhà 2</th></tr></thead><tbody id="split-breakdown"></tbody></table></div></details>
+        <details class="house-calculation"><summary>Cách tính Nhà 1</summary><div id="house-1-calculation" class="calculation-steps"></div></details>
+        <details class="house-calculation"><summary>Cách tính Nhà 2</summary><div id="house-2-calculation" class="calculation-steps"></div></details>
+        <details class="split-details"><summary>Chi tiết chia theo bậc</summary><p class="hint">Dùng lượng quy đổi để chia bậc. Định mức thấp chưa dùng hết chuyển sang nhà kia.</p><div class="table-wrap"><table><thead><tr><th scope="col">Bậc / Đơn giá</th><th scope="col">Nhà 1</th><th scope="col">Nhà 2</th></tr></thead><tbody id="split-breakdown"></tbody></table></div></details>
       </div>
     </section>
     <footer><p>Nguồn: <a href="https://cskh.cpc.vn/tra-cuu/thong-tin-gia-dien" target="_blank" rel="noopener noreferrer">Giá bán lẻ điện sinh hoạt · EVNCPC</a></p></footer>
