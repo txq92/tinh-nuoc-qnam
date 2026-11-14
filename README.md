@@ -52,6 +52,10 @@ node calculator.test.cjs
 
 ## Deploy bằng GitHub Pages
 
+Workflow GitHub Actions tự chạy `node scripts/version-assets.cjs` trước khi build. Script thêm `?v=<hash nội dung>` vào đường dẫn JS/CSS trên cả hai trang: file thay đổi sẽ có URL mới để trình duyệt tải lại, file không đổi vẫn được cache. Khi chuẩn bị bản deploy thủ công, chạy lệnh này trước khi tải source lên. Không cần thư viện ngoài.
+
+Người dùng cần tải lại trang để nhận HTML chứa đường dẫn phiên bản mới. Cơ chế này không tự cập nhật một tab đang mở và không ép xóa bản HTML còn trong cache của trình duyệt/CDN.
+
 1. Tạo repository trên GitHub và tải các tệp của dự án lên nhánh `main`, giữ `index.html` ở thư mục gốc.
 2. Vào **Settings → Pages** của repository.
 3. Trong **Build and deployment**, chọn **Deploy from a branch**.
