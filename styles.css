@@ -96,6 +96,15 @@ footer a:hover { color: #075751; }
 .calculation-steps table { margin-top: 12px; }
 .calculation-steps td { white-space: normal; text-align: right; padding-left: 10px; line-height: 1.8; }
 .calculation-steps .house-final { color: #086451; font-weight: 600; font-size: 13px; }
+.save-panel { margin-top: 20px; padding: 16px; border: 1px solid #dbe5df; border-radius: 16px; background: white; }
+.save-panel h2 { margin: 0 0 12px; }
+.save-panel label { margin: 12px 0 8px; }
+.save-panel input { font-size: 16px; border: 1px solid #afc6bd; border-radius: 9px; background: white; min-height: 44px; padding: 10px; }
+.save-panel button { width: 100%; min-height: 46px; margin-top: 12px; border: 0; border-radius: 10px; background: #086b66; color: white; font-weight: 600; }
+.save-panel button:disabled { opacity: .5; cursor: default; }
+.save-panel summary { cursor: pointer; padding: 12px 0; font-size: 12px; }
+.save-panel p { font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+.save-panel a { color: #086b66; }
 @media (max-width: 700px) {
   .split-panel { padding: 16px; }
   .page-menu { max-width: none; margin-bottom: 16px; }

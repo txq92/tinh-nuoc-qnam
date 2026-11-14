@@ -6,11 +6,13 @@
   <meta name="theme-color" content="#086b66">
   <meta name="description" content="Tính tiền điện sinh hoạt theo 5 bậc, kèm bảng tính chi tiết.">
   <title>Tính tiền điện sinh hoạt</title>
-  <link rel="stylesheet" href="styles.css?v=e8e908b7d549">
+  <link rel="stylesheet" href="styles.css?v=cd6519ff2279">
   <script src="split-calculator.js?v=7686c8cb1c39" defer></script>
   <script src="electricity.js?v=9a7406767f0d" defer></script>
-  <script src="utility-split.js?v=99bcaf2f7d6a" defer></script>
-  <script src="app.js?v=2e2481e03607" defer></script>
+  <script src="sheets-config.js?v=f5b4e085c4fb" defer></script>
+  <script src="sheets-save.js?v=cce694fdc2e3" defer></script>
+  <script src="utility-split.js?v=1704049ec680" defer></script>
+  <script src="app.js?v=0a50706759d3" defer></script>
 </head>
 <body data-calculator="electricity">
   <main class="container">
@@ -92,6 +94,22 @@
         <details class="house-calculation"><summary>Cách tính Nhà 2</summary><div id="house-2-calculation" class="calculation-steps"></div></details>
         <details class="split-details"><summary>Chi tiết chia theo bậc</summary><p class="hint">Dùng lượng quy đổi để chia bậc. Định mức thấp chưa dùng hết chuyển sang nhà kia.</p><div class="table-wrap"><table><thead><tr><th scope="col">Bậc / Đơn giá</th><th scope="col">Nhà 1</th><th scope="col">Nhà 2</th></tr></thead><tbody id="split-breakdown"></tbody></table></div></details>
       </div>
+    </section>
+    <section class="save-panel" aria-labelledby="save-title">
+      <h2 id="save-title">Lưu kết quả</h2>
+      <label for="save-period">Kỳ tính</label>
+      <input id="save-period" type="month" required>
+      <button id="save-sheet" type="button" disabled>Lưu vào Google Sheets</button>
+      <p id="save-status" role="status" aria-live="polite">Lưu hóa đơn hiện tại và phần chia 2 nhà (nếu đã nhập).</p>
+      <details id="sheets-settings">
+        <summary>Kết nối Google Sheets</summary>
+        <label for="sheets-endpoint">URL Web App</label>
+        <input id="sheets-endpoint" type="url" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off" spellcheck="false">
+        <label for="sheets-access-code">Mã lưu</label>
+        <input id="sheets-access-code" type="password" autocomplete="off">
+        <p>Mã lưu do chủ bảng tính cấp, không phải mật khẩu Google. Mã chỉ dùng trong phiên này.</p>
+        <p><a href="https://docs.google.com/spreadsheets/d/1VO9q08GkoNdp68kOqoovL6dkpAXFpSQISW8iCxPB9Lo/edit" target="_blank" rel="noopener noreferrer">Mở bảng lịch sử</a></p>
+      </details>
     </section>
     <footer><p>Nguồn: <a href="https://cskh.cpc.vn/tra-cuu/thong-tin-gia-dien" target="_blank" rel="noopener noreferrer">Giá bán lẻ điện sinh hoạt · EVNCPC</a></p></footer>
   </main>

@@ -95,7 +95,11 @@ function render() {
       return tr;
     });
     document.getElementById('breakdown').replaceChildren(...rows);
-    document.dispatchEvent(new CustomEvent('utility-bill-change', { detail: bill }));
+    document.dispatchEvent(new CustomEvent('utility-bill-change', { detail: {
+      ...bill, inputMethod,
+      startReading: inputMethod === 'readings' ? parseVolume(startInput.value) : null,
+      endReading: inputMethod === 'readings' ? parseVolume(endInput.value) : null
+    } }));
     showCalculationToast();
   } catch (exception) {
     error.textContent = exception.message;

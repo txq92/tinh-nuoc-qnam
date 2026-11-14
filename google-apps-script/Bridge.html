@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8"></head><body>
+<script>
+(function () {
+  'use strict';
+  const config = <?!= configJson ?>;
+  let busy = false;
+  function send(type, result) {
+    window.top.postMessage({ channel: 'utility-sheets', nonce: config.nonce, type, result }, config.origin);
+  }
+  window.addEventListener('message', function (event) {
+    const data = event.data;
+    if (event.source !== window.top || event.origin !== config.origin || !data || data.channel !== 'utility-sheets' || data.nonce !== config.nonce || data.type !== 'save' || busy) return;
+    busy = true;
+    google.script.run.withSuccessHandler(function (result) {
+      send('result', result);
+    }).withFailureHandler(function (error) {
+      send('result', { ok: false, error: error.message || 'Không thể lưu vào Google Sheets.' });
+    }).saveUtilityRecord(data.request);
+  });
+  send('ready');
+})();
+</script>
+</body></html>

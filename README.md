@@ -1,5 +1,9 @@
 # Tính tiền nước và điện sinh hoạt
 
+## Lưu Google Sheets
+
+Cả hai trang có nút **Lưu vào Google Sheets**, lưu hóa đơn và kết quả chia hai nhà vào bảng `dien nuoc hang thang`. Xem [hướng dẫn kết nối](google-apps-script/README.md). Cần triển khai Apps Script và cấp quyền Google một lần trước khi sử dụng. Phần lưu dùng mã truy cập riêng; không đưa mật khẩu Google hoặc mã lưu vào source.
+
 Trang HTML/CSS/JavaScript tĩnh, không cần cài thư viện hay build. Mở `index.html` để sử dụng; giao diện hỗ trợ điện thoại và máy tính.
 
 Menu **Tiền nước / Tiền điện** có trên cả hai trang. Trang nước ở `index.html`, trang điện ở `electricity.html`; dùng chung giao diện ưu tiên điện thoại, cách nhập trực tiếp hoặc nhập hai chỉ số và thông báo tính xong tự tắt sau 3 giây.
@@ -66,4 +70,4 @@ Người dùng cần tải lại trang để nhận HTML chứa đường dẫn 
 4. Chọn nhánh **main**, thư mục **/ (root)**, bấm **Save**.
 5. Chờ GitHub triển khai, mở địa chỉ được hiển thị trong trang Pages, thường là `https://<username>.github.io/<repository>/`.
 
-Các đường dẫn tài nguyên là tương đối, dùng được cả ở tên miền riêng và đường dẫn repository. Không cần backend, API key hay cấu hình build. Font Google là tùy chọn; nếu không tải được, trang sử dụng font hệ thống.
+Các đường dẫn tài nguyên là tương đối, dùng được cả ở tên miền riêng và đường dẫn repository. Phần tính tiền không cần backend hay API key; phần lưu lịch sử dùng Apps Script đã cấu hình. Font Google là tùy chọn; nếu không tải được, trang sử dụng font hệ thống.

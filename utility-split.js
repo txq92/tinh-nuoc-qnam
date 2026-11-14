@@ -81,6 +81,7 @@
   }
 
   function render() {
+    document.dispatchEvent(new CustomEvent('utility-split-change', { detail: null }));
     error.hidden = true;
     results.hidden = true;
     first.removeAttribute('aria-invalid');
@@ -140,6 +141,7 @@
       renderHouseCalculation(split, 1);
       renderHouseCalculation(split, 2);
       results.hidden = false;
+      document.dispatchEvent(new CustomEvent('utility-split-change', { detail: split }));
     } catch (exception) {
       error.textContent = exception.message;
       error.hidden = false;
