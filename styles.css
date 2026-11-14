@@ -40,6 +40,9 @@ input::placeholder { font-size: 23px; color: #87998e; font-weight: 400; }
 .amount { font-size: clamp(30px, 4vw, 46px); font-weight: 700; color: #086451; letter-spacing: -1.6px; margin-top: 12px; overflow-wrap: anywhere; }
 .currency { font-size: 26px; font-weight: 500; }
 .total p { font-size: 11px; color: #587c6d; margin: 9px 0 0; line-height: 1.8; }
+.tax-summary { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid #c7ded0; font-size: 11px; }
+.tax-summary > div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; padding: 4px 0; }
+.tax-summary dd { margin: 0; font-weight: 600; }
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 24px; }
 caption { text-align: left; font-size: 13px; font-weight: 600; margin-bottom: 16px; }

@@ -1,5 +1,6 @@
 (function (root) {
   'use strict';
+  const VAT_RATE = 0.08;
   const TIERS = Object.freeze([
     Object.freeze({ label: 'Bậc 1', range: 'Đến 100 kWh', capacity: 100, rate: 1901 }),
     Object.freeze({ label: 'Bậc 2', range: 'Trên 100–200 kWh', capacity: 100, rate: 2289 }),
@@ -30,7 +31,9 @@
       remaining = Math.max(0, remaining - used);
       return { ...tier, used, amount: used * tier.rate };
     });
-    return { volume, rows, total: Math.round(rows.reduce((sum, row) => sum + row.amount, 0)) };
+    const total = Math.round(rows.reduce((sum, row) => sum + row.amount, 0));
+    const vatAmount = Math.round(total * VAT_RATE);
+    return { volume, rows, total, vatRate: VAT_RATE, vatAmount, totalWithVat: total + vatAmount };
   }
 
   const api = { TIERS, parseVolume, calculateBill };

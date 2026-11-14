@@ -21,5 +21,13 @@ for (const [volume, total, usage] of cases) {
   console.log(`PASS ${volume} kWh => ${total} VND (chưa VAT)`);
 }
 assert.equal(parseVolume('100,5'), 100.5);
+for (const [volume, vat, totalWithVat] of [[0, 0, 0], [100, 15208, 205308], [250, 45096, 608796], [701, 163076, 2201520], [100.5, 15300, 206545]]) {
+  const bill = calculateBill(volume);
+  assert.equal(bill.vatRate, 0.08);
+  assert.equal(bill.vatAmount, vat);
+  assert.equal(bill.totalWithVat, totalWithVat);
+  assert.equal(bill.total + bill.vatAmount, bill.totalWithVat);
+  console.log(`PASS ${volume} kWh: VAT ${vat} VND, sau VAT ${totalWithVat} VND`);
+}
 for (const input of ['', '-1', 'abc', 'Infinity', '1000000001']) assert.throws(() => parseVolume(input), RangeError);
 for (const input of [-1, NaN, Infinity, '100', 1000000001]) assert.throws(() => calculateBill(input), RangeError);

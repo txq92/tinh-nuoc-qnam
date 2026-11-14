@@ -39,9 +39,17 @@
       </div>
 
       <div class="result-panel">
-        <div class="total" aria-live="polite" aria-atomic="true"><span class="eyebrow">TIỀN ĐIỆN CHƯA VAT</span><div class="amount"><span id="total">—</span> <span class="currency">₫</span></div><p id="summary">Nhập chỉ số hoặc số kWh để tính.</p></div>
+        <div class="total" aria-live="polite" aria-atomic="true">
+          <span class="eyebrow">TỔNG TIỀN ĐIỆN SAU VAT</span>
+          <div class="amount"><span id="total">—</span> <span class="currency">₫</span></div>
+          <p id="summary">Nhập chỉ số hoặc số kWh để tính.</p>
+          <dl class="tax-summary">
+            <div><dt>Tiền điện trước thuế</dt><dd id="subtotal">—</dd></div>
+            <div><dt>Thuế GTGT (8%)</dt><dd id="vat-amount">—</dd></div>
+          </dl>
+        </div>
         <div class="table-wrap"><table><caption>Chi tiết theo bậc sử dụng</caption><thead><tr><th scope="col">Bậc / Đơn giá</th><th scope="col">Sử dụng</th><th scope="col">Thành tiền</th></tr></thead><tbody id="breakdown"></tbody></table></div>
-        <p class="calculation-note">Giá theo 5 bậc bạn cung cấp · Chưa VAT · Làm tròn đến đồng.</p>
+        <p class="calculation-note">Đã cộng VAT 8% · Làm tròn đến đồng.</p>
       </div>
     </section>
 

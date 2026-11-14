@@ -34,6 +34,10 @@ function render() {
   input.removeAttribute('aria-invalid');
   if (inputMethod === 'readings') input.value = '';
   document.getElementById('total').textContent = '—';
+  if (isElectricity) {
+    document.getElementById('subtotal').textContent = '—';
+    document.getElementById('vat-amount').textContent = '—';
+  }
   document.getElementById('summary').textContent = `Nhập chỉ số hoặc số ${unit} để tính.`;
   document.getElementById('breakdown').replaceChildren();
   try {
@@ -67,7 +71,11 @@ function render() {
     input.value = volumeFormat.format(volume);
     }
     const bill = calculateBill(volume);
-    document.getElementById('total').textContent = money.format(bill.total);
+    document.getElementById('total').textContent = money.format(isElectricity ? bill.totalWithVat : bill.total);
+    if (isElectricity) {
+      document.getElementById('subtotal').textContent = `${money.format(bill.total)} ₫`;
+      document.getElementById('vat-amount').textContent = `${money.format(bill.vatAmount)} ₫`;
+    }
     document.getElementById('summary').textContent = `${number.format(bill.volume)} ${unit} trong kỳ`;
     const rows = bill.rows.map(row => {
       const tr = document.createElement('tr');

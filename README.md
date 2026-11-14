@@ -6,7 +6,7 @@ Menu **Tiền nước / Tiền điện** có trên cả hai trang. Trang nước
 
 ## Tiền điện
 
-Tính lũy tiến theo bảng giá người dùng cung cấp, **chưa cộng VAT**:
+Tính lũy tiến theo bảng giá người dùng cung cấp. Đơn giá dưới đây chưa thuế; kết quả chính hiển thị **tổng tiền đã cộng thuế GTGT 8%**, kèm tiền trước thuế và tiền thuế.
 
 | Bậc | Lượng điện | Đơn giá (đồng/kWh) |
 | --- | --- | ---: |
@@ -16,7 +16,7 @@ Tính lũy tiến theo bảng giá người dùng cung cấp, **chưa cộng VAT
 | 4 | Trên 400 đến 700 kWh | 3.456 |
 | 5 | Trên 700 kWh | 3.844 |
 
-Ví dụ 250 kWh = 100 × 1.901 + 100 × 2.289 + 50 × 2.894 = **563.700 đ**, chưa VAT. Nguồn tham khảo: [EVNCPC](https://cskh.cpc.vn/tra-cuu/thong-tin-gia-dien). Chạy `node electricity.test.cjs` để kiểm tra các mốc chuyển bậc.
+Ví dụ 250 kWh = 100 × 1.901 + 100 × 2.289 + 50 × 2.894 = **563.700 đ** trước thuế; thuế GTGT 8% = **45.096 đ**; tổng sau thuế = **608.796 đ**. Tiền trước thuế và tiền thuế làm tròn riêng đến đồng, tổng thanh toán bằng tổng hai khoản. Mức VAT 8% được đặt theo yêu cầu người dùng. Nguồn tham khảo: [EVNCPC](https://cskh.cpc.vn/tra-cuu/thong-tin-gia-dien). Chạy `node electricity.test.cjs` để kiểm tra các mốc chuyển bậc và VAT.
 
 ## Tiền nước
 
