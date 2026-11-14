@@ -6,6 +6,8 @@ Menu **Tiền nước / Tiền điện** có trên cả hai trang. Trang nước
 
 ## Tiền điện
 
+Cuối trang điện có phần chia cho 2 nhà tương tự tiền nước: chia đều định mức các bậc thấp, chênh lệch kWh mặc định 0 và chia đôi trước khi phân bổ bậc. Nhập lượng điện một nhà, nhà kia tự điền sao cho hai nhà + chênh lệch = tổng kWh. Mỗi nhà hiển thị tiền trước thuế, VAT và tiền sau thuế. Phần làm tròn trước thuế và VAT được cân đối ở nhà 2 để tổng tiền hai nhà bằng đúng hóa đơn đồng hồ chung **sau VAT 8%**.
+
 Tính lũy tiến theo bảng giá người dùng cung cấp. Đơn giá dưới đây chưa thuế; kết quả chính hiển thị **tổng tiền đã cộng thuế GTGT 8%**, kèm tiền trước thuế và tiền thuế.
 
 | Bậc | Lượng điện | Đơn giá (đồng/kWh) |
@@ -19,6 +21,8 @@ Tính lũy tiến theo bảng giá người dùng cung cấp. Đơn giá dưới
 Ví dụ 250 kWh = 100 × 1.901 + 100 × 2.289 + 50 × 2.894 = **563.700 đ** trước thuế; thuế GTGT 8% = **45.096 đ**; tổng sau thuế = **608.796 đ**. Tiền trước thuế và tiền thuế làm tròn riêng đến đồng, tổng thanh toán bằng tổng hai khoản. Mức VAT 8% được đặt theo yêu cầu người dùng. Nguồn tham khảo: [EVNCPC](https://cskh.cpc.vn/tra-cuu/thong-tin-gia-dien). Chạy `node electricity.test.cjs` để kiểm tra các mốc chuyển bậc và VAT.
 
 ## Tiền nước
+
+Cuối trang nước có phần chia tiền cho 2 nhà theo cách chia đều định mức giá thấp. Tổng m³ và tiền đồng hồ chung lấy từ máy tính phía trên. Nhập lượng nước của một nhà, nhà còn lại tự điền phần còn lại; có thể sửa ở bất kỳ nhà nào. Ô **Chênh lệch nước** mặc định 0 và nhận số không âm. Luôn có **nhà 1 + nhà 2 + chênh lệch = tổng m³**. Phần chênh lệch chia đôi cho hai nhà trước khi phân bổ bậc giá. Mỗi bậc chia đều theo nhu cầu còn lại, định mức không dùng hết chuyển sang nhà kia. Tiền nhà 1 làm tròn đến đồng, tiền nhà 2 bằng tổng hóa đơn trừ tiền nhà 1 để luôn khớp tổng. Ví dụ tổng 100 m³, chênh lệch 0: nhà 1 dùng 20 m³ trả 245.775 đ, nhà 2 dùng 80 m³ trả 1.183.215 đ, cộng đúng 1.428.990 đ.
 
 Có hai cách nhập: nhập trực tiếp **Số mét khối trong kỳ**, hoặc nhập **Số đầu** và **Số cuối** để tự điền số m³ bằng số cuối trừ số đầu. Tổng tiền và chi tiết từng bậc cập nhật ngay theo cách nhập vừa sửa. Có thể sửa số m³ bằng tay sau khi tự tính từ chỉ số. Số cuối phải lớn hơn hoặc bằng số đầu. Khi thiếu hoặc nhập sai dữ liệu ở cách nhập đang dùng, trang xóa kết quả cũ để tránh nhầm lẫn.
 

@@ -6,9 +6,11 @@
   <meta name="theme-color" content="#086b66">
   <meta name="description" content="Tính tiền nước sinh hoạt theo 4 bậc, kèm bảng tính chi tiết.">
   <title>Tính tiền nước sinh hoạt</title>
-  <link rel="stylesheet" href="styles.css?v=23d31b86d23f">
-  <script src="calculator.js?v=c5393ca20cae" defer></script>
-  <script src="app.js?v=69c176ba8c89" defer></script>
+  <link rel="stylesheet" href="styles.css?v=f6a0024abecb">
+  <script src="split-calculator.js?v=55fcf407907a" defer></script>
+  <script src="calculator.js?v=125a1cd4859a" defer></script>
+  <script src="utility-split.js?v=884e1a417910" defer></script>
+  <script src="app.js?v=2e2481e03607" defer></script>
 </head>
 <body>
   <main class="container">
@@ -48,6 +50,40 @@
     </section>
 
     <details class="tariffs"><summary>Bảng giá nước sinh hoạt</summary><div class="tariff-grid"><article><span class="tier">01</span><h3>10 m³ đầu tiên</h3><p>8.954 <small>đ / m³</small></p></article><article><span class="tier">02</span><h3>Trên 10 đến 20 m³</h3><p>11.177 <small>đ / m³</small></p></article><article><span class="tier">03</span><h3>Trên 20 đến 30 m³</h3><p>13.400 <small>đ / m³</small></p></article><article><span class="tier">04</span><h3>Trên 30 m³</h3><p>15.624 <small>đ / m³</small></p></article></div></details>
+    <section class="split-panel" aria-labelledby="split-title">
+      <h2 id="split-title">Chia tiền nước cho 2 nhà</h2>
+      <p class="hint">Chia đều bậc giá thấp và nước chênh lệch cho 2 nhà.</p>
+      <p id="split-meter" class="split-meter">Nhập tổng số m³ ở phần tính tiền phía trên.</p>
+      <form id="split-form" novalidate>
+        <div class="readings">
+          <div>
+            <label for="house-one">Nhà 1 sử dụng</label>
+            <div class="input-wrap"><input id="house-one" type="text" inputmode="decimal" placeholder="20" autocomplete="off" aria-describedby="split-hint split-error"><span>m³</span></div>
+          </div>
+          <div>
+            <label for="house-two">Nhà 2 sử dụng</label>
+            <div class="input-wrap"><input id="house-two" type="text" inputmode="decimal" placeholder="80" autocomplete="off" aria-describedby="split-hint split-error"><span>m³</span></div>
+          </div>
+        </div>
+        <label for="usage-discrepancy">Chênh lệch nước</label>
+        <div class="input-wrap"><input id="usage-discrepancy" type="text" inputmode="decimal" value="0" autocomplete="off" aria-describedby="split-hint split-error"><span>m³</span></div>
+        <p id="split-hint" class="hint">Nhập một nhà, nhà kia tự tính phần còn lại. Nước chênh lệch chia đôi.</p>
+        <p id="split-error" class="error" role="alert" hidden></p>
+      </form>
+      <div id="split-results" aria-live="polite" aria-atomic="true" hidden>
+        <p id="split-volume-equality" class="split-meter"></p>
+        <div class="split-houses">
+          <div><span>Nhà 1</span><strong id="house-one-total">—</strong></div>
+          <div><span>Nhà 2</span><strong id="house-two-total">—</strong></div>
+        </div>
+        <div class="split-reconciliation">
+          <p>Tổng tiền 2 nhà <strong id="split-total">—</strong></p>
+          <p>Tiền đồng hồ chung <strong id="split-master-total">—</strong></p>
+          <p id="split-equality" class="split-equality"></p>
+        </div>
+        <details class="split-details"><summary>Chi tiết chia theo bậc</summary><p class="hint">Đã gồm một nửa nước chênh lệch mỗi nhà. Định mức thấp chưa dùng hết chuyển sang nhà kia.</p><div class="table-wrap"><table><thead><tr><th scope="col">Bậc / Đơn giá</th><th scope="col">Nhà 1</th><th scope="col">Nhà 2</th></tr></thead><tbody id="split-breakdown"></tbody></table></div></details>
+      </div>
+    </section>
     <footer>
       <p>Nguồn: <a href="https://nuocsachqna.vn/index.php/Tin-tuc/thong-bao-v-v-dieu-chinh-gia-nuoc-sach-tren-dia-ban-tinh-quang-nam-tu-thang-07-2025-39.html" target="_blank" rel="noopener noreferrer">Giá nước Quảng Nam · 07/2025</a></p>
     </footer>

@@ -33,7 +33,12 @@
     return { volume, rows, total: Math.round(rows.reduce((sum, row) => sum + row.amount, 0)) };
   }
 
-  const api = { TIERS, parseVolume, calculateBill };
+  function splitBill(totalVolume, firstVolume, discrepancy = 0) {
+    const splitter = typeof module !== 'undefined' && module.exports ? require('./split-calculator.js') : root.UtilityBillSplitter;
+    return splitter.splitBill(calculateBill(totalVolume), firstVolume, discrepancy);
+  }
+
+  const api = { TIERS, parseVolume, calculateBill, splitBill };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.WaterCalculator = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

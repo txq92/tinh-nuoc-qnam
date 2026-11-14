@@ -28,6 +28,7 @@ function showCalculationToast() {
 
 function render() {
   hideCalculationToast();
+  document.dispatchEvent(new CustomEvent('utility-bill-change', { detail: null }));
   error.hidden = true;
   startInput.removeAttribute('aria-invalid');
   endInput.removeAttribute('aria-invalid');
@@ -94,6 +95,7 @@ function render() {
       return tr;
     });
     document.getElementById('breakdown').replaceChildren(...rows);
+    document.dispatchEvent(new CustomEvent('utility-bill-change', { detail: bill }));
     showCalculationToast();
   } catch (exception) {
     error.textContent = exception.message;

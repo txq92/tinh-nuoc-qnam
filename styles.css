@@ -73,7 +73,21 @@ footer p { margin: 0 0 10px; }
 footer a { color: #086b66; text-underline-offset: 3px; overflow-wrap: anywhere; }
 footer a:hover { color: #075751; }
 .toast { position: fixed; right: 20px; bottom: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 10; max-width: calc(100vw - 40px); padding: 13px 20px; border-radius: 12px; background: #086b66; color: white; box-shadow: 0 6px 24px #163c3330; font-size: 13px; pointer-events: none; }
+.split-panel { margin-top: 20px; padding: 24px; background: white; border: 1px solid #dbe5df; border-radius: 16px; }
+.split-panel h2 { margin: 0; font-size: 17px; }
+.split-panel > .hint { margin-bottom: 12px; }
+.split-meter { padding: 12px; background: #eaf4ed; border-radius: 10px; font-size: 12px; line-height: 1.7; margin: 12px 0 16px; }
+.split-houses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+.split-houses > div { border: 1px solid #dbe5df; border-radius: 10px; padding: 12px; }
+.split-houses span { font-size: 12px; }
+.split-houses small { display: block; margin-top: 8px; font-size: 10px; line-height: 1.8; color: #667b74; }
+.split-houses strong { display: block; margin-top: 8px; color: #086451; font-size: clamp(16px, 4.5vw, 24px); overflow-wrap: anywhere; }
+.split-reconciliation { margin-top: 12px; padding: 12px; background: #eaf4ed; border-radius: 10px; }
+.split-reconciliation p { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 12px; line-height: 1.7; margin: 6px 0; }
+.split-reconciliation .split-equality { display: block; padding-top: 8px; border-top: 1px solid #c7ded0; font-size: 11px; color: #086451; overflow-wrap: anywhere; }
+.split-details summary { cursor: pointer; padding-top: 16px; font-size: 12px; }
 @media (max-width: 700px) {
+  .split-panel { padding: 16px; }
   .page-menu { max-width: none; margin-bottom: 16px; }
   .container { padding: 20px 12px; }
   h1 { font-size: 25px; margin-bottom: 16px; }
