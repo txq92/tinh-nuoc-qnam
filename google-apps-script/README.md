@@ -11,7 +11,7 @@ Không cần chia sẻ bảng công khai. Khi lưu lần đầu, script tự t�
 3. Thêm tệp **HTML**, đặt tên **Bridge**, rồi dán nội dung `google-apps-script/Bridge.html`.
 4. Vào **Project Settings → Script properties**, thêm:
    - `SAVE_ACCESS_CODE`: một mã ngẫu nhiên riêng, tối thiểu 16 ký tự. Không đưa mã vào source GitHub, Google Sheet hoặc chia sẻ công khai.
-   - `ALLOWED_ORIGIN`: `https://txq92.github.io`. Nếu dùng tên miền riêng, thay bằng origin của tên miền đó, không có đường dẫn hoặc dấu `/` cuối.
+   - `ALLOWED_ORIGIN`: `https://nhatro.vnid.me` (tên miền website hiện tại). Nếu đổi tên miền, thay bằng origin mới, không có đường dẫn hoặc dấu `/` cuối. Đường dẫn GitHub Pages hiện chuyển hướng sang tên miền này.
 5. Chọn **Deploy → New deployment → Web app**:
    - **Execute as:** tài khoản của bạn.
    - **Who has access:** **Anyone** để trang GitHub Pages kết nối được. Mọi lần ghi vẫn phải có mã lưu đúng; script không có chức năng đọc lịch sử công khai. Người được cấp mã có thể thêm dòng vào tab lịch sử, vì vậy chỉ cấp mã cho người được phép lưu.

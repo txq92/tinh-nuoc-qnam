@@ -72,6 +72,7 @@ function saveUtilityRecord(request) {
       sheet.setFrozenRows(1);
       sheet.getRange(1, 1, 1, SAVE_HEADERS.length).setFontWeight('bold').setBackground('#eaf4ed');
       sheet.getRange('B:B').setNumberFormat('dd/MM/yyyy HH:mm:ss');
+      sheet.getRange('C:C').setNumberFormat('@');
       sheet.getRange('K:K').setNumberFormat('0%');
     } else {
       var headers = sheet.getRange(1, 1, 1, SAVE_HEADERS.length).getValues()[0];
