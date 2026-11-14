@@ -62,5 +62,8 @@ h3 { font-size: 11px; font-weight: 500; margin: 14px 0 12px; }
 .tariff-grid p { font-size: 23px; font-weight: 600; margin: 0; letter-spacing: -.5px; }
 .tariff-grid small { font-size: 10px; font-weight: 400; color: #71827b; }
 footer { text-align: center; font-size: 10px; color: #788a81; padding-top: 32px; line-height: 1.8; }
+footer p { margin: 0 0 10px; }
+footer a { color: #086b66; text-underline-offset: 3px; overflow-wrap: anywhere; }
+footer a:hover { color: #075751; }
 @media (max-width: 700px) { .container { padding: 28px 18px 24px; } .calculator { grid-template-columns: 1fr; } .input-panel { border-right: 0; border-bottom: 1px solid #e2e9e3; } .input-panel, .result-panel { padding: 24px; } .tariff-grid { grid-template-columns: repeat(2, 1fr); } h1 { letter-spacing: -1px; } }
 @media (max-width: 380px) { .input-panel, .result-panel { padding: 18px; } .section-heading { align-items: flex-start; flex-direction: column; gap: 0; } .tariff-grid article { padding: 15px; } }
